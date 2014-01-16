@@ -41,7 +41,11 @@
     <Reference Include="Google.AdWords">
       <HintPath>..\..\..\Google\examples\CSharp\bin\Debug\Google.AdWords.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.8.3\lib\net40\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -70,6 +74,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

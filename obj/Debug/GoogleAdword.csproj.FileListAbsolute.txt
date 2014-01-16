@@ -26,3 +26,4 @@ F:\Salik's Documents\GoogleAdword\GoogleAdword\bin\Debug\Google.AdWords.xml
 F:\Salik's Documents\GoogleAdword\GoogleAdword\obj\Debug\GoogleAdword.csprojResolveAssemblyReference.cache
 F:\Salik's Documents\GoogleAdword\GoogleAdword\obj\Debug\GoogleAdword.Properties.Resources.resources
 F:\Salik's Documents\GoogleAdword\GoogleAdword\obj\Debug\GoogleAdword.csproj.GenerateResource.Cache
+F:\Salik's Documents\GoogleAdword\GoogleAdword\bin\Debug\MySql.Data.dll

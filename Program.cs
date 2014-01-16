@@ -15,6 +15,7 @@ namespace GoogleAdword
         [STAThread]
         static void Main()
         {
+            ExampleUtilities exUtil = new ExampleUtilities();
             GoogleServices objServe = new GoogleServices();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -53,7 +54,9 @@ namespace GoogleAdword
                 string[] arrWords = Words.Split(',');
                 try
                 {
-                    objServe.RunTargetIdea(new AdWordsUser(), arrWords);
+                  string[] arrKeyword = objServe.RunTargetIdea(new AdWordsUser(), arrWords);
+                  string strKeyword = string.Join("," , arrKeyword);
+                  exUtil.InsertTrafficKeyWord(strKeyword);
                 }
                 catch (Exception ex)
                 {
