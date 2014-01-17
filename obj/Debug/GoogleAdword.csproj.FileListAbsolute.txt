@@ -27,3 +27,15 @@ F:\Salik's Documents\GoogleAdword\GoogleAdword\obj\Debug\GoogleAdword.csprojReso
 F:\Salik's Documents\GoogleAdword\GoogleAdword\obj\Debug\GoogleAdword.Properties.Resources.resources
 F:\Salik's Documents\GoogleAdword\GoogleAdword\obj\Debug\GoogleAdword.csproj.GenerateResource.Cache
 F:\Salik's Documents\GoogleAdword\GoogleAdword\bin\Debug\MySql.Data.dll
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\GoogleAdword.exe.config
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\obj\Debug\GoogleAdword.exe
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\obj\Debug\GoogleAdword.pdb
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\GoogleAdword.exe
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\GoogleAdword.pdb
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\Google.Ads.Common.pdb
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\Google.Ads.Common.xml
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\Google.AdWords.pdb
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\bin\Debug\Google.AdWords.xml
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\obj\Debug\GoogleAdword.csprojResolveAssemblyReference.cache
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\obj\Debug\GoogleAdword.Properties.Resources.resources
+C:\Users\Canopus\Documents\GitHub\DemoApp\DemoApp\obj\Debug\GoogleAdword.csproj.GenerateResource.Cache

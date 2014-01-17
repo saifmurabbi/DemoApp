@@ -12,6 +12,7 @@ namespace GoogleAdword
 {
     public class ExampleUtilities
     {
+        int a = 10;
         string conStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
         MySqlConnection con = null;
         public static string FormatException(Exception ex)
@@ -21,7 +22,7 @@ namespace GoogleAdword
             while (rootEx != null)
             {
                 messages.Add(String.Format("{0} ({1})\n\n{2}\n", rootEx.GetType().ToString(),
-                    rootEx.Message, rootEx.StackTrace));
+                rootEx.Message, rootEx.StackTrace));
                 rootEx = rootEx.InnerException;
             }
             return String.Join("\nCaused by\n\n", messages.ToArray());
@@ -59,7 +60,6 @@ namespace GoogleAdword
                 //{
                 //    con.Close(); //close the connection
                 //}
-
             }
         }
 
@@ -91,19 +91,43 @@ namespace GoogleAdword
             }
         }
 
-        public void InsertTrafficKeyWord(string strKeyword)
+        public void InsertTrafficKeyWord(string strKeyword , string strSearchVolume , string strKeywordCategory)
         {
            // MySqlCommand myCmd = new MySqlCommand();
             try
             {
+                //OpenConnection();
+                //string sql = "INSERT INTO KeywordsMatrics(ID_KeywordMatrics, Keyword_TrafficData,FK_KeywordList) VALUES (@id,@Keyword_TrafficData,@FK_KeywordList)";
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SP_InsertKeywordMatrics";
                 OpenConnection();
-                string sql = "INSERT INTO KeywordsMatrics(ID_KeywordMatrics, Keyword_TrafficData,FK_KeywordList) VALUES (@id,@Keyword_TrafficData,@FK_KeywordList)";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@id", 1);
-                cmd.Parameters.AddWithValue("@Keyword_TrafficData", strKeyword);
-                cmd.Parameters.AddWithValue("@FK_KeywordList", 1);
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("KeywordTrafficData", strKeyword);
+                cmd.Parameters.AddWithValue("FK_KeywordList", 1);
+                cmd.Parameters.AddWithValue("Avg_MonthlySearchVolume", strSearchVolume);
+                cmd.Parameters.AddWithValue("Keyword_Category", strKeywordCategory);
+                cmd.Parameters.AddWithValue("ID_KeywordMatrics", MySqlDbType.Int32);
+                cmd.Parameters["@ID_KeywordMatrics"].Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 //("Inserted");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public void InserBulkTrafficData(string path)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "LOAD DATA LOCAL INFILE 'C:/Users/Canopus/Documents/GitHub/DemoApp/DemoApp/bin/Debug/MatricsData.txt' INTO TABLE googleadword.keywordsmatrics FIELDS TERMINATED BY '_' LINES TERMINATED BY '/r/n'";
+                OpenConnection();
+                cmd.Connection = con;
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

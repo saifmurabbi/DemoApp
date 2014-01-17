@@ -9,21 +9,135 @@ namespace GoogleAdword
 {
     public class GoogleServices
     {
-        public string[] RunTargetIdea(AdWordsUser user, string[] keywordLine)
+        //public string[] RunTargetIdea(AdWordsUser user, string[] keywordLine)
+        //{
+        //    // Get the TargetingIdeaService.
+        //    TargetingIdeaService targetingIdeaService =
+        //        (TargetingIdeaService)user.GetService(AdWordsService.v201309.TargetingIdeaService);
+
+        //    // Create selector.
+        //    TargetingIdeaSelector selector = new TargetingIdeaSelector();
+        //    selector.requestType = RequestType.IDEAS;
+        //    selector.ideaType = IdeaType.KEYWORD;
+        //    selector.requestedAttributeTypes = new AttributeType[] {
+        //      AttributeType.KEYWORD_TEXT,
+        //      //AttributeType.SEARCH_VOLUME,
+        //      //AttributeType.CATEGORY_PRODUCTS_AND_SERVICES
+        //    };
+        //    // Language setting (optional).
+        //    // The ID can be found in the documentation:
+        //    //   https://developers.google.com/adwords/api/docs/appendix/languagecodes
+        //    // Note: As of v201302, only a single language parameter is allowed.
+        //    LanguageSearchParameter languageParameter = new LanguageSearchParameter();
+        //    Language english = new Language();
+        //    english.id = 1000;
+        //    languageParameter.languages = new Language[] { english };
+
+        //    // Create related to query search parameter.
+        //    RelatedToQuerySearchParameter relatedToQuerySearchParameter =
+        //        new RelatedToQuerySearchParameter();
+        //    relatedToQuerySearchParameter.queries = new String[keywordLine.Length];
+        //    for (int i = 0; i < keywordLine.Length; i++)
+        //    {
+        //        string keywordText = keywordLine[i];
+        //        relatedToQuerySearchParameter.queries[i] = keywordText;
+        //    }
+
+        //    selector.searchParameters =
+        //      new SearchParameter[] { relatedToQuerySearchParameter, languageParameter };
+
+        //    // Set selector paging (required for targeting idea service).
+        //    Paging paging = new Paging();
+        //    paging.startIndex = 0;
+        //    paging.numberResults = 50;
+        //    selector.paging = paging;
+
+        //    int offset = 0;
+        //    int pageSize = 50;
+
+        //    TargetingIdeaPage page = new TargetingIdeaPage();
+        //    int j = 0;
+        //    String[] arrKeyWord = new String[800];
+        //    try
+        //    {
+        //        do
+        //        {
+
+        //            selector.paging.startIndex = offset;
+        //            selector.paging.numberResults = pageSize;
+        //            // Get related keywords.
+        //            page = targetingIdeaService.get(selector);
+
+        //            // Display related keywords.
+        //            if (page.entries != null && page.entries.Length > 0)
+        //            {
+        //                int i = offset;
+        //                foreach (TargetingIdea targetingIdea in page.entries)
+        //                {
+        //                    string keyword = null;
+        //                    string categories = null;
+        //                    long averageMonthlySearches = 0;
+
+        //                    foreach (Type_AttributeMapEntry entry in targetingIdea.data)
+        //                    {
+        //                        if (entry.key == AttributeType.KEYWORD_TEXT)
+        //                        {
+        //                            keyword = (entry.value as StringAttribute).value;
+        //                            arrKeyWord[j] = keyword;
+        //                        }
+        //                        if (entry.key == AttributeType.CATEGORY_PRODUCTS_AND_SERVICES)
+        //                        {
+        //                            IntegerSetAttribute categorySet = entry.value as IntegerSetAttribute;
+        //                            StringBuilder builder = new StringBuilder();
+        //                            if (categorySet.value != null)
+        //                            {
+        //                                foreach (int value in categorySet.value)
+        //                                {
+        //                                    builder.AppendFormat("{0}, ", value);
+        //                                }
+        //                                categories = builder.ToString().Trim(new char[] { ',', ' ' });
+                          
+        //                            }
+        //                        }
+        //                        if (entry.key == AttributeType.SEARCH_VOLUME)
+        //                        {
+        //                            averageMonthlySearches = (entry.value as LongAttribute).value;
+        //                        }
+        //                    }
+        //                    Console.WriteLine("Keyword with text '{0}' was found", keyword);
+        //                    i++;
+        //                    j++;
+        //                }
+
+        //            }
+        //            offset += pageSize;
+        //        } while (offset < page.totalNumEntries);
+        //        Console.WriteLine("Number of related keywords found: {0}", page.totalNumEntries);
+        //        return arrKeyWord;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new System.ApplicationException("Failed to retrieve related keywords.", ex);
+        //    }
+        //}
+
+        public string RunTargetIdea(AdWordsUser user, string[] keywordLine)
         {
             // Get the TargetingIdeaService.
             TargetingIdeaService targetingIdeaService =
                 (TargetingIdeaService)user.GetService(AdWordsService.v201309.TargetingIdeaService);
+
+           // string keywordText = "mars cruise";
 
             // Create selector.
             TargetingIdeaSelector selector = new TargetingIdeaSelector();
             selector.requestType = RequestType.IDEAS;
             selector.ideaType = IdeaType.KEYWORD;
             selector.requestedAttributeTypes = new AttributeType[] {
-              AttributeType.KEYWORD_TEXT,
-              //AttributeType.SEARCH_VOLUME,
-              //AttributeType.CATEGORY_PRODUCTS_AND_SERVICES
-            };
+        AttributeType.KEYWORD_TEXT,
+        AttributeType.SEARCH_VOLUME,
+        AttributeType.CATEGORY_PRODUCTS_AND_SERVICES};
+
             // Language setting (optional).
             // The ID can be found in the documentation:
             //   https://developers.google.com/adwords/api/docs/appendix/languagecodes
@@ -36,6 +150,7 @@ namespace GoogleAdword
             // Create related to query search parameter.
             RelatedToQuerySearchParameter relatedToQuerySearchParameter =
                 new RelatedToQuerySearchParameter();
+
             relatedToQuerySearchParameter.queries = new String[keywordLine.Length];
             for (int i = 0; i < keywordLine.Length; i++)
             {
@@ -43,26 +158,29 @@ namespace GoogleAdword
                 relatedToQuerySearchParameter.queries[i] = keywordText;
             }
 
+            //relatedToQuerySearchParameter.queries = new String[] { keywordText };
             selector.searchParameters =
               new SearchParameter[] { relatedToQuerySearchParameter, languageParameter };
+
 
             // Set selector paging (required for targeting idea service).
             Paging paging = new Paging();
             paging.startIndex = 0;
-            paging.numberResults = 50;
+            paging.numberResults = 500;
             selector.paging = paging;
 
             int offset = 0;
-            int pageSize = 50;
+            int pageSize = 500;
 
             TargetingIdeaPage page = new TargetingIdeaPage();
             int j = 0;
             String[] arrKeyWord = new String[800];
+            String[] arrSearchVolume = new String[800];
+            String[] arrKeywordCategory = new String[800];
             try
             {
                 do
                 {
-
                     selector.paging.startIndex = offset;
                     selector.paging.numberResults = pageSize;
                     // Get related keywords.
@@ -96,32 +214,37 @@ namespace GoogleAdword
                                             builder.AppendFormat("{0}, ", value);
                                         }
                                         categories = builder.ToString().Trim(new char[] { ',', ' ' });
-                          
+                                        arrKeywordCategory[j] = categories;
                                     }
                                 }
                                 if (entry.key == AttributeType.SEARCH_VOLUME)
                                 {
                                     averageMonthlySearches = (entry.value as LongAttribute).value;
+                                    arrSearchVolume[j] = Convert.ToString(averageMonthlySearches);
                                 }
                             }
-                            Console.WriteLine("Keyword with text '{0}' was found", keyword);
+                            Console.WriteLine("Keyword with text '{0}', and average monthly search volume " +
+                                "'{1}' was found with categories: {2}", keyword, averageMonthlySearches,
+                                categories);
                             i++;
                             j++;
                         }
-
                     }
                     offset += pageSize;
                 } while (offset < page.totalNumEntries);
                 Console.WriteLine("Number of related keywords found: {0}", page.totalNumEntries);
-                return arrKeyWord;
+                string strKeyword = String.Join("_" , arrKeyWord);
+                string strSearchVolume = String.Join("_" , arrSearchVolume);
+                string strKeywordCategory = String.Join("_", arrKeywordCategory);
+                string strReturn = strKeyword + "|" + strSearchVolume + "|" + strKeywordCategory;
+                return strReturn;
             }
             catch (Exception ex)
             {
                 throw new System.ApplicationException("Failed to retrieve related keywords.", ex);
             }
         }
-
-        public void RunEstimatorService(AdWordsUser user , string Broad)
+     public void RunEstimatorService(AdWordsUser user , string Broad)
         {
             // Get the TrafficEstimatorService.
             TrafficEstimatorService trafficEstimatorService = (TrafficEstimatorService)user.GetService(

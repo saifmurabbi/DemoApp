@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Web;
+using System.IO;
 
 namespace GoogleAdword
 {
@@ -52,16 +54,49 @@ namespace GoogleAdword
                 Console.WriteLine("Target Idea Service , Please enter a word or you can enter multiple words saperated by comma (',')");
                 string Words = Console.ReadLine();
                 string[] arrWords = Words.Split(',');
+                string path = System.IO.Path.GetFullPath("MatricsData.txt");
+                string strKeyword = string.Empty;
+                string strSearchVolume = string.Empty;
+                string strKeywordCategory = string.Empty;
+                string[] arrData = new string[50];
                 try
                 {
-                  string[] arrKeyword = objServe.RunTargetIdea(new AdWordsUser(), arrWords);
-                  string strKeyword = string.Join("," , arrKeyword);
-                  exUtil.InsertTrafficKeyWord(strKeyword);
+                    string strResponse = objServe.RunTargetIdea(new AdWordsUser(), arrWords);
+                    string[] arrResponse = strResponse.Split('|');
+
+                    string [] arrKeyword = arrResponse[0].Split('_');
+                    string [] arrSearchVolume = arrResponse[1].Split('_');
+                    string [] arrKeywordCategory = arrResponse[2].Split('_');
+
+                    for (int i = 0; i < 50; i++)
+                    {
+                        strKeyword = "_"+arrKeyword[i] + "_" + 1 + "_" + arrSearchVolume[i] + "_" + arrKeywordCategory[i];
+                        if (i == 0)
+                        {
+                            arrData[i] = strKeyword;
+                        }
+                        else
+                        { 
+                        arrData[i] = "/r/n"+strKeyword;
+                        }
+                    }
+
+                        if (!File.Exists(path))
+                        {
+                            //  File.Create(path);
+                            File.WriteAllLines(path, arrData);
+                        }
+                        else
+                        {
+                            File.WriteAllLines(path, arrData);
+                        }
+                    //exUtil.InsertTrafficKeyWord();
+                    exUtil.InserBulkTrafficData(path);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("An exception Occured while running this code example.{0}",
-                           ExampleUtilities.FormatException(ex));
+                    ExampleUtilities.FormatException(ex));
                 }
                 //Console.ReadLine();
                 Console.WriteLine("Press 'n' to exit.. and 'y' to continue..");
@@ -81,8 +116,6 @@ namespace GoogleAdword
                 Main();
                 Console.ReadLine();
             }
-
-
-        }
+          }
     }
 }
